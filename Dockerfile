@@ -1,22 +1,20 @@
-# 1. Empezar desde la imagen oficial de n8n que ya usas
+# Empezar desde la imagen oficial que ya conocemos
 FROM n8nio/n8n:latest
 
-# 2. Cambiar al usuario root para poder instalar programas
+# Cambiar a usuario root para instalar paquetes (esto SÍ funciona aquí)
 USER root
 
-# 3. Instalar las librerías gráficas y de sistema que Chromium necesita
+# Instalar las dependencias de sistema para el navegador
 RUN apt-get update && \
     apt-get install -y \
-    # Dependencias clave para Puppeteer/Chromium
     libnss3 \
     libxss1 \
     libasound2 \
     libatk-bridge2.0-0 \
     libgtk-3-0 \
     libgbm-dev && \
-    # Limpiar para mantener la imagen ligera
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# 4. Devolver el control al usuario 'node' por seguridad y buenas prácticas
+# Volver al usuario normal de n8n por seguridad
 USER node
